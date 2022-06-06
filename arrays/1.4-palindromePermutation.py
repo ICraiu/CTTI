@@ -6,26 +6,29 @@
 # Output:True (permutations: "taco cat". "atco cta". etc.)
 
 
-
 def solution(input):
     input = input.lower()
-    input = input.replace(" ","")
+    input = input.replace(" ", "")
     asList = list(input)
     _sort(asList, 0, len(input)-1)
     input = asList
     i = 0
     counter = 0
-    m = False # checks if there are multiple characters with odd count
-    while i < len(input)-1:
+    m = False  # checks if there are multiple characters with odd count
+    while i < len(input):
         counter = counter+1
-        if input[i] != input[i+1]:
-            if counter %2 ==1:
+        if i < len(input)-1 and input[i] != input[i+1]:
+            if counter % 2 == 1:
                 if m:
                     return False
                 m = True
             counter = 0
         i = i+1
+    if counter % 2 == 1:
+        if m:
+            return False
     return True
+
 
 def _sort(input, l, r):
     if l < r:
@@ -52,4 +55,4 @@ def _pivot(a, l, r):
 
 
 assert solution("tact coa")
-
+assert solution("ttact coA") == False
